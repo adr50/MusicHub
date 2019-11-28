@@ -11,7 +11,7 @@ if (isset($_GET['username']))
 
 	$username = DB::query("select username from users where username=:username", array(':username'=>$_GET['username']))[0]['username'] //variable if user is found 
 	$OtherUserID = DB::query("select id from users where username=:username", array(':username'=>$_GET['username']))[0]['id']; //selecting the id of user depending on the username on the profile page 
-	$LoggedInUserID = login_receiver::isLoggedIn(); //id of the user that is already logged in
+	$LoggedInUserID = login_receiver::isLoggedIn(); //id of the user that is currently logged in
 	
 	if (isset($_POST['follow'])) //check if the form is being submitted
 	{
