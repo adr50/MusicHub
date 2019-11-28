@@ -1,5 +1,4 @@
 <?php
-
 require_once("'Database Server'/dbconfig.php");
 require_once("'Database Server'/login_receiver.php");
 
@@ -40,11 +39,8 @@ if (isset($_GET['username']))
 			}
 				$isFollowing = False;
 		}
-	}
-
-	
+	}	
 }
-
 ?>
 
 <form action="user_profile.php?username=<?php echo $username; ?> "method="post">
