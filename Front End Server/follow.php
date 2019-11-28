@@ -1,6 +1,6 @@
 <?php
-require_once("'Database Server'/dbconfig.php");
-require_once("'Database Server'/login_receiver.php");
+require_once('dbconfig.php');
+require_once('login_receiver.php');
 
 $username = ""; //declare username as empty string to begin with
 $isFollowing = False;
