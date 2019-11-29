@@ -9,26 +9,26 @@ require_once 'path.inc';
 require_once 'rabbitMQLib.inc';
 require_once 'get_host_info.inc';
 
-function requestProcessor($db_request){
+function requestProcessor($db_request) {
     echo "Received request:" . PHP_EOL;
     
     echo var_dump($db_request['search']);
     echo var_dump($db_request['action']);
     
-    if ($db_request['action'] != "SELECT"){ // If INSERT indicated...
+    if ($db_request['action'] != "SELECT") {
         doInsert($db_request);
     }
 }
 
-function doInsert($db_request){
+function doInsert($db_request) {
     $database = new mysqli("localhost", "root", "password", "website");
     
-    if(mysqli_connect_errno()){
+    if(mysqli_connect_errno()) {
         echo "Failed to connect to MySQL database: " . mysqli_connect_error();
         exit();
     }
     
-    for ($i = 0; $i < count($db_request); $i++){
+    for ($i = 0; $i < count($db_request); $i++) {
     
       $artist_id = $db_request[$i]['artist_id'];
       $name = $db_request[$i]['name'];
@@ -37,7 +37,7 @@ function doInsert($db_request){
       $track_id = $db_request[$i]['track_id'];
       $track_title = $db_request[$i]['track_title'];
       $track_duration = $db_request[$i]['track_duration'];
-    
+        
       $result = $database->query("SELECT artist_id FROM music WHERE track_id = '$track_id'");
       
       if ($result->num_rows >= 1) {
@@ -51,7 +51,7 @@ function doInsert($db_request){
     }
 }
 echo "Rabbit MQ Server Start: ..." . PHP_EOL;
-$server = new rabbitMQServer("api_db_insert.ini", "testServer");
+$server = new rabbitMQServer("api_insert.ini", "testServer");
 $server->process_requests('requestProcessor');
 exit();
 ?> 
