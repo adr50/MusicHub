@@ -16,8 +16,8 @@ function requestProcessor($db_request){
     echo var_dump($db_request['action'] . "\n");
     
     if ($db_request['action'] == "SELECT"){
-        $the_data = doCheck($db_request['search']);
-        return $the_data;
+        $data = doCheck($db_request['search']);
+        return $data;
     }
 }
 
@@ -25,7 +25,8 @@ function doCheck($db_request){ //Return all rows of the table that match the sea
     $database = new mysqli("localhost", "root", "password", "website");
     $pass = array();
     
-    $result = $database->query("SELECT * FROM music WHERE artist_id LIKE '%$db_request%' OR name LIKE '%$db_request%' OR album_id LIKE '%$db_request%'
+    $result = $database->query("SELECT * FROM music WHERE artist_id LIKE '%$db_request%' OR 
+    name LIKE '%$db_request%' OR album_id LIKE '%$db_request%'
     OR album_title LIKE '%$db_request%' OR track_id LIKE '%$db_request%' OR
     track_title LIKE '%$db_request%' OR track_duration LIKE '%$db_request%'");
     
