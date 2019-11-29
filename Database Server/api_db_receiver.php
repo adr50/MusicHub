@@ -11,43 +11,32 @@ require_once 'get_host_info.inc';
 
 function requestProcessor($db_request){
     echo "Received request:" . PHP_EOL;
-    var_dump($request);
-    $insertion = doCheck($db_request);
+    
+    echo var_dump($db_request['search'] . "\n");
+    echo var_dump($db_request['action'] . "\n");
+    
+    if ($db_request['action'] == "SELECT"){
+        $the_data = doCheck($db_request['search']);
+        return $the_data;
+    }
 }
 
-function doCheck($db_request){
+function doCheck($db_request){ //Return all rows of the table that match the search query, empty array = no results.
     $database = new mysqli("localhost", "root", "password", "website");
+    $pass = array();
     
-    if(mysqli_connect_errno()){
-        echo "Failed to connect to MySQL database: " . mysqli_connect_error();
-        exit();
+    $result = $database->query("SELECT * FROM music WHERE artist_id LIKE '%$db_request%' OR name LIKE '%$db_request%' OR album_id LIKE '%$db_request%'
+    OR album_title LIKE '%$db_request%' OR track_id LIKE '%$db_request%' OR
+    track_title LIKE '%$db_request%' OR track_duration LIKE '%$db_request%'");
+    
+    while ($db_row = $result->fetch_assoc()){
+        array_push($pass, $db_row);
     }
-    
-    for ($i = 0; $i < count($db_request); $i++){
-    
-      $artist_id = $db_request[$i]['artist_id'];
-      $name = $db_request[$i]['name'];
-      $album_id = $db_request[$i]['album_id'];
-      $album_title = $db_request[$i]['album_title'];
-      $track_id = $db_request[$i]['track_id'];
-      $track_title = $db_request[$i]['track_title'];
-      $track_duration = $db_request[$i]['track_duration'];
-    
-      $result = $database->query("SELECT artist_id FROM music WHERE track_id = '$track_id'");
-      
-      
-      if ($result->num_rows >= 1) {
-        //echo "TRACK: [A: " . $name . " --> T: " . $track_title . "] NOTE: Record already exists, database not updated." . PHP_EOL;
-      } else {
-        echo "TRACK: [A: " . $name . " --> T: " . $track_title . "] NOTE: Record has been added to the table." . PHP_EOL;
-        $database->query("INSERT INTO music (artist_id, name, album_id, album_title, track_id, track_title,
-        track_duration) VALUES ('$artist_id', '$name', '$album_id', '$album_title', '$track_id', '$track_title', '$track_duration')");
-      }
-      
-    }
+    return $pass;
 }
-echo "Rabbit MQ Server Start" . PHP_EOL;
-$server = new rabbitMQServer("api_db.ini", "testServer");
+
+echo "Rabbit MQ Server Start: ..." . PHP_EOL;
+$server = new rabbitMQServer("api_select.ini", "testServer");
 $server->process_requests('requestProcessor');
 exit();
 ?>
