@@ -23,7 +23,7 @@ if (isset($_POST['search']))
 	print_r($users);
 }
 	
-<form action="*filename*.php" method="post">
+<form action="index.html" method="post">
 	<input type="text" name="search" placeholder="Username">
 	<input type="submit" name="search" value= "Search User">
 </form>
