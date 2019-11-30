@@ -1,4 +1,4 @@
-<?php
+ <?php
 ini_set("display_errors", 0);
 ini_set("log_errors",1);
 ini_set("error_log", "/tmp/error.log");
@@ -20,7 +20,12 @@ function requestProcessor($db_request){
     
     if ($db_request['action'] == "SELECT"){
         $data = doCheck($db_request['search']);
+        if (empty($data)) {
+        echo "No results found, contacting server...\n";
+        } else {
+        echo "Results found!\n";
         return $data;
+        }
     }
 }
 
