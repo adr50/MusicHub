@@ -18,6 +18,11 @@ function requestProcessor($db_request){
     echo var_dump($db_request['action']);
     echo "\n";
     
+    $inputFile = fopen("search_cache.txt", "a");
+    fwrite($inputFile, $db_request['search']);
+    fwrite($inputFile, "\n");
+    fclose($inputFile);
+    
     if ($db_request['action'] == "SELECT"){
         $data = doCheck($db_request['search']);
         if (empty($data)) {
