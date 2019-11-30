@@ -4,10 +4,12 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
 function requestProcessor($request){
-  echo "received request".PHP_EOL;
+  echo "Received Request: ".PHP_EOL;
+  echo "\n[Query]: ";
   var_dump($request);
-    $results = doSearch($request['search']);
-    return $results;
+  echo "\n";
+  $results = doSearch($request);
+  return $results;
     }
 
 function doSearch($search_string){
