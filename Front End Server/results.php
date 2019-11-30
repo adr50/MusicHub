@@ -11,42 +11,44 @@ $request = array();
 $request['search'] = $_GET['search'];
 $request['action'] = "SELECT";
 $search = $request['search'];
-	
-$database_response = $select->send_request($request); //Check whether the database contains the search query using SELECT.
 
-if ($database_response) { //If contents of the returned array from the database is not empty, display them.
-	echo "Results for: " . "'" . $search . "'" . PHP_EOL;
-	echo '<pre>'; print_r($database_response); echo '</pre>'
+$database_response = $select->send_request($request);
+
+if ($database_response) {
+    echo '<pre>'; print_r($database_response); echo '</pre>';
 }
-else { //If contents of the returned array from the database is empty, call API and INSERT into table.
-	$assoc = json_decode($response, true);
+else { 
+    
+    $response = $api->send_request($request['search']);
 
-	$artist_keys = array('id', 'name');
-	$album_keys = array('id', 'title');
-	$track_keys = array('id', 'title', 'duration');
+    $assoc = json_decode($response, true);
 
-	$pass = array(); //Get key/value pairs and pass them to database for insertion.
+    $artist_keys = array('id', 'name');
+    $album_keys = array('id', 'title');
+    $track_keys = array('id', 'title', 'duration');
 
-	for($i = 0; $i < $assoc['total']; $i++){
+    $passing = array();
 
-    	$artist_id_data = $assoc['data'][$i]['artist'][$artist_keys[0]];
-    	$artist_name_data = $assoc['data'][$i]['artist'][$artist_keys[1]];
+    for($i = 0; $i < $assoc['total']; $i++){
 
-    	$album_id_data = $assoc['data'][$i]['album'][$album_keys[0]];
-    	$album_title_data = $assoc['data'][$i]['album'][$album_keys[1]];
+        $artist_id_data = $assoc['data'][$i]['artist'][$artist_keys[0]];
+        $artist_name_data = $assoc['data'][$i]['artist'][$artist_keys[1]];
 
-    	$track_id_data = $assoc['data'][$i][$track_keys[0]];
-    	$track_title_data = $assoc['data'][$i][$track_keys[1]];
-    	$track_duration_data = $assoc['data'][$i][$track_keys[2]];
+        $album_id_data = $assoc['data'][$i]['album'][$album_keys[0]];
+        $album_title_data = $assoc['data'][$i]['album'][$album_keys[1]];
 
-    	if ($artist_id_data != "" || $artist_name_data != ""){
-      		$pass[$i] = array('artist_id'=> $artist_id_data, 'name'=> $artist_name_data, 
-      		'album_id' => $album_id_data, 'album_title' => $album_title_data, 'track_id' => $track_id_data, 
-      		'track_title' => $track_title_data, 'track_duration' => $track_duration_data);
-    	}
-}
-echo "Found new results for: " . "'" . $request['search'] . "'" . PHP_EOL;
-echo '<pre>'; print_r($pass); echo '</pre>';
-$insert->send_request($pass); //Insertion queue passes the music data to the database.
+        $track_id_data = $assoc['data'][$i][$track_keys[0]];
+        $track_title_data = $assoc['data'][$i][$track_keys[1]];
+        $track_duration_data = $assoc['data'][$i][$track_keys[2]];
+
+        if ($artist_id_data != "" || $artist_name_data != ""){
+        $passing[$i] = array('artist_id'=> $artist_id_data, 'name'=> $artist_name_data, 
+        'album_id' => $album_id_data, 'album_title' => $album_title_data, 'track_id' => $track_id_data, 
+        'track_title' => $track_title_data, 'track_duration' => $track_duration_data);
+        }
+    }
+    echo '<pre>'; print_r($passing); echo '</pre>';
+    $passing['action'] = "INSERT";
+    $insert->send_request($passing);
 }
 ?>
