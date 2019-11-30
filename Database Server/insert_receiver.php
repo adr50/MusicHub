@@ -12,12 +12,12 @@ require_once 'get_host_info.inc';
 function requestProcessor($db_request) {
     echo "Received request:" . PHP_EOL;
     
-    echo var_dump($db_request['search']);
+    echo "\n";
+    echo "[Action]: ";
     echo var_dump($db_request['action']);
-    
-    if ($db_request['action'] != "SELECT") {
-        doInsert($db_request);
-    }
+    echo "\n";
+
+    doInsert($db_request);
 }
 
 function doInsert($db_request) {
@@ -41,14 +41,13 @@ function doInsert($db_request) {
       $result = $database->query("SELECT artist_id FROM music WHERE track_id = '$track_id'");
       
       if ($result->num_rows >= 1) {
-        //echo "INSERT: [A: " . $name . " --> T: " . $track_title . "] NOTE: Already exists, database not updated." . PHP_EOL;
       } else {
-        echo "INSERT: [A: " . $name . " --> T: " . $track_title . "] NOTE: Record has been added to the table." . PHP_EOL;
         $database->query("INSERT INTO music (artist_id, name, album_id, album_title, track_id, track_title,
         track_duration) VALUES ('$artist_id', '$name', '$album_id', '$album_title',
         '$track_id', '$track_title', '$track_duration')");
       }
     }
+    echo "Table has been modified.\n\n";
 }
 echo "Rabbit MQ Server Start: ..." . PHP_EOL;
 $server = new rabbitMQServer("api_insert.ini", "testServer");
