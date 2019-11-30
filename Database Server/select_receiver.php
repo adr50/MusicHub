@@ -11,9 +11,12 @@ require_once 'get_host_info.inc';
 
 function requestProcessor($db_request){
     echo "Received request:" . PHP_EOL;
-    
-    echo var_dump($db_request['search'] . "\n");
-    echo var_dump($db_request['action'] . "\n");
+    echo "\n";
+    echo "[Query]: ";
+    echo var_dump($db_request['search']);
+    echo "[Action]: ";
+    echo var_dump($db_request['action']);
+    echo "\n";
     
     if ($db_request['action'] == "SELECT"){
         $data = doCheck($db_request['search']);
