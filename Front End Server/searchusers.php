@@ -22,7 +22,6 @@ if (isset($_POST['search']))
 	$users = DB::query('select username from users where username like :username '.$whereclause.'', $paramsarray);
 	print_r($users);
 }
-
 	
 <form action="*filename*.php" method="post">
 	<input type="text" name="search" placeholder="Username">
