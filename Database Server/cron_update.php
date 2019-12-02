@@ -1,6 +1,6 @@
 <?php
 
-$api = new rabbitMQClient("api.ini", "testServer");
+$api = new rabbitMQClient("api.ini", "testServer"); // Might need a separate API receiver to avoid errors.
 $database = new mysqli("localhost", "root", "password", "website");
 $file = fopen("search_cache.txt", "r");
 $queries = array();
@@ -11,7 +11,7 @@ while (!feof($file)) { // Iterate through all lines of the file.
 
 for (i = 0; i <= count($queries); i++) { // Iterate through each element.
 	$query = $queries[i];
-	$response = $api->send_request($query);
+	$response = $api->send_request($query); // Might need a separate API receiver to avoid errors.
 
 	$assoc = json_decode($response, true);
     	$artist_keys = array('id', 'name');
