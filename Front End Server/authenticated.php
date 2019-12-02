@@ -40,8 +40,8 @@ function request_processor($req){
 			return validate($req['session_id']);
 		case "echo":
 			return array("return_code"=>'0', "message"=>"Echo: " .$req["message"]);
-    case "search":
-      return search($req['name']);
+    		case "search":
+      			return search($req['name']);
 	}
 	return array("return_code" => '0',
 		"message" => "Server received request and processed it");
