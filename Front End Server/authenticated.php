@@ -50,6 +50,10 @@ function request_processor($req){
 
 ?>
 <!DOCTYPE html>
+<body>
+<form action="authenticated.php" method="POST">
+<input id="search" name="name" type="text"
+</form>
 <html lang="en">
   <head>
     <meta charset="utf-8">
