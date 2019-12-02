@@ -5,6 +5,49 @@ if(!isset($_GET['token']) || $_GET['token'] != $_SESSION['random']){
 }
 $username = $_SESSION['username'];
 $random = $_SESSION['random'];
+
+function search_music($name) {
+  include ('dbconfig.php');
+  include ('apifile.php' );
+  $database = mysqli_connect('localhost', 'root', 'password', 'website'); //connects to database
+  $value = mysqli_query("SELECT * FROM website WHERE 'name' = '$name';"); //retrives value from database 'website' where name is equal to $name
+  $num_rows = mysqli_num_rows($value); //counts number of rows of value
+  if($num_rows > 0) { //if number of rows retrieved greater than zero
+    echo $name; //display $name
+  }else{ //no rows
+    search($name); //search API
+  }
+  $name = $_POST("name");
+  global $response;
+  $JSON = json_encode($response);
+  return $JSON;   
+}
+
+  
+
+function request_processor($req){
+	echo "Received Request".PHP_EOL;
+	echo "<pre>" . var_dump($req) . "</pre>";
+	if(!isset($req['type'])){
+		return "Error: unsupported message type";
+	}
+	//Handle message type
+	$type = $req['type'];
+	switch($type){
+		case "login":
+			return login($req['username'], $req['password']);
+		case "validate_session":
+			return validate($req['session_id']);
+		case "echo":
+			return array("return_code"=>'0', "message"=>"Echo: " .$req["message"]);
+    case "search":
+      return search($req['name']);
+	}
+	return array("return_code" => '0',
+		"message" => "Server received request and processed it");
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
