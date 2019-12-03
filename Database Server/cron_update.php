@@ -3,6 +3,9 @@
 $api = new rabbitMQClient("api.ini", "testServer"); // Might need a separate API receiver to avoid errors.
 $database = new mysqli("localhost", "root", "password", "website");
 
+   
+$file_ptr = "test.txt";  
+
 $file = fopen("search_cache.txt", "r");
 $queries = array();
 
@@ -52,6 +55,11 @@ for (i = 0; i <= count($queries); i++) { // Iterate through each element.
         	'$track_id', '$track_title', '$track_duration')");
 	}
 }
+		
+if (!unlink($file_pointer)) {  // After all queries are iterated over and updated, delete the file.
+    echo ("Error: File cannot be deleted.");  
+}  
+else {  
+    echo ("Success: File has been deleted.");  
+}  
 ?>
-
-
