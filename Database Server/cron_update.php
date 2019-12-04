@@ -4,7 +4,7 @@ $api = new rabbitMQClient("api.ini", "testServer"); // Might need a separate API
 $database = new mysqli("localhost", "root", "password", "website");
 
    
-$file_ptr = "test.txt";  
+$file_ptr = "search_cache.txt";  
 
 $file = fopen("search_cache.txt", "r");
 $queries = array();
