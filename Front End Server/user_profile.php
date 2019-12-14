@@ -66,6 +66,24 @@ accept="image/">
   <input type="submit" class="btn btn-primary"
 name="submit_background" value="Submit">
  </form>
+    
+ <!--View another user's profile -->
+ <?php
+ $user_id = $_GET['user_id'];
+ $user_id = mysqli_real_escape_string($user_id);
+ $result = mysqli_query("SELECT * FROM users WHERE id='$user_id'");
+
+ $number = mysqli_num_rows($result);
+ if ($number < 1)
+ {
+   echo "No user found";
+ }
+ else
+ {
+   echo "<a href=user_profile.php?userid='.$user_id.'>Link</a>"; 
+ }
+
+ ?>
  
   
 
