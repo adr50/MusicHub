@@ -11,6 +11,7 @@ $request = array();
 $request['search'] = $_GET['search'];
 $request['action'] = "SELECT";
 $search = $request['search'];
+$result = explode(" ", $search);
 
 $database_response = $select->send_request($request);
 
