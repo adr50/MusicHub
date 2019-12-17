@@ -21,6 +21,7 @@ function requestProcessor($db_request){
         $data = doCheck($db_request['search']);
         if (empty($data)) {
         echo "No results found, contacting server...\n";
+        return "NA";
         } else {
         echo "Results found!\n";
         return $data;
