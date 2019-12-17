@@ -9,7 +9,10 @@ These directions are written assuming the user is running Ubuntu Server 18.04.
 Get these dependencies/requirements:
 ```
 sudo apt-get install php apache2 mysql-server rabbitmq-server php-bcmath php-mbstring composer php-curl php-gettext php-mysql
+```
 
+Inside each FOLDER (i.e. Front End Server, Database Server, API Server) open a terminal and execute:
+```
 composer require php-amqplib/php-amqplib
 ```
 
