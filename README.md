@@ -6,7 +6,7 @@ A music discovery website/catalog built as a project for systems integration at 
 
 These directions are written assuming the user is running Ubuntu Server 18.04.
 
-Get these dependencies/requirements: (Front End/Database/RabbitMQ)
+Get these dependencies/requirements:
 ```
 sudo apt-get install php apache2 mysql-server rabbitmq-server php-bcmath php-mbstring composer php-curl php-gettext php-mysql
 
@@ -33,7 +33,7 @@ If new install of MySQL, first execute `sudo mysql` then after logging in: `ALTE
 
 1. Execute: `mysql -u root -p`, make a database called "website".
 
-2. Inside "SQL Files" folder, execute: `mysql -u username -p new_database < data-dump.sql`
+2. Inside "SQL Files" folder, execute: `mysql -u root -p website < music.sql` (also `users.sql`).
 
 3. Inside "Database Server" folder, modify `.ini` files to use RMQ Server's IP address.
 
