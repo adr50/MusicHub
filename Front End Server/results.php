@@ -15,7 +15,7 @@ $result = explode(" ", $search);
 
 $database_response = $select->send_request($request);
 
-if ($database_response) {
+if ($database_response != "NA") {
     echo '<pre>'; print_r($database_response); echo '</pre>';
 }
 else { 
