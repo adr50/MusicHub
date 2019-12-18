@@ -9,7 +9,7 @@ $random   = $_SESSION['random'];
 ?>
 
 
-/*
+<!--
 <?php
 
 session_start():
@@ -29,7 +29,7 @@ echo "Welcome to your profile <b>".$_SESSION['username']."</b>!";
 <body>
 </body>
 </html>
-*/
+-->
 
 <!DOCTYPE html>
 <html lang="en">
