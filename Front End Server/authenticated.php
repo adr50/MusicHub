@@ -98,7 +98,7 @@ function request_processor($req){
     <section class="hero">
         <div class="hero-inner">
         <h1 style="font-family:'Pacifico', cursive;">MusicHub</h1>
-        <p>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>, welcome back!</p> // Visit your <a href='user_profile.php'>profile</a>.";
+        <p>Hi, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>, welcome back!</p> <!--Visit your <a href='user_profile.php'>profile</a>."; -->
         <div class="container">
       <div class="">
         <div class="searchbar">
