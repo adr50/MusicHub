@@ -10,7 +10,7 @@ function search_music($name) {
   include ('dbconfig.php');
   include ('apifile.php' );
   $database = mysqli_connect('localhost', 'root', 'password', 'website'); //connects to database
-  $value = mysqli_query("SELECT * FROM website WHERE 'name' = '$name';"); //retrives value from database 'website' where name is equal to $name
+  $value = mysqli_query("SELECT * FROM music WHERE 'name' = '$name';"); //retrives value from database 'music' where name is equal to $name
   $num_rows = mysqli_num_rows($value); //counts number of rows of value
   if($num_rows > 0) { //if number of rows retrieved greater than zero
     echo $name; //display $name
