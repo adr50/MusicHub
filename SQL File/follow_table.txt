@@ -1,0 +1,4 @@
+CREATE TABLE `follow` (
+  `id` int(11) unsigned not null primary key auto_increment,
+  `userid` int(11) unsigned not null,
+  `followerid` int(11) unsigned not null);
