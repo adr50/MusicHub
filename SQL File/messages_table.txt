@@ -1,0 +1,5 @@
+CREATE TABLE `MESSAGES` (
+  `id` int(11) unsigned not null primary key auto_increment,
+  `text` tinytext not null,
+  `sender` int(11) unsigned not null,
+  `receiver` int(11) unsigned not null);
